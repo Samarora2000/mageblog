@@ -1,0 +1,66 @@
+<?php /** @var Magedelight\Crud\Block\Article $block */ ?>
+<?php $articleCollection = $block->getCollection(); ?>
+<?php if (count($articleCollection)) { ?>
+    <div class="article-grid">
+        <?php foreach($articleCollection as $article): ?>
+            <div class="article-item">
+                <h3 class="article-title">
+
+                    <a href="<?php echo $block->getUrl('crud/index/view', ['id' => $article->getId()]); ?>">
+                        <?php echo $article->getTitle(); ?>
+                    </a>
+                </h3> 
+                <div class="article-meta">
+                    <span class="article-date">
+                        <?php echo date('F j, Y', strtotime($article->getCreatedAt())); ?>
+                    </span>
+                </div>
+                <div class="article-content">
+                    <p><?php echo $article->getContent(); ?></p>
+                </div>
+            </div> 
+        <?php endforeach; ?> 
+    </div>
+<?php } ?>
+<style>
+ /* Grid container */
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Adjusting grid for desktop screens */
+@media (min-width: 768px) {
+    .article-grid {
+        grid-template-columns: repeat(3, 1fr); /* Display 3 articles in a row for screens wider than 768px */
+    }
+}
+
+/* Individual article item */
+.article-item {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Article title */
+.article-title a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Article meta information */
+.article-meta {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Article content */
+.article-content {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+</style>
